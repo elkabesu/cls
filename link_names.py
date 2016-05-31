@@ -103,7 +103,6 @@ for gl in group_links:
 				link_names_dict_3[gl[2]] = crd_name_dict[crd].replace("\"", "").replace("\'", "")
 
 print link_names_dict_1
-"""
 mysql = MySQLdb.connect("localhost", "root", pass, "adv_13f_match")
 cursor = mysql.cursor()
 for gl in group_links:
@@ -119,4 +118,3 @@ for gl in group_links:
 		query = "update group_links set link_name = \"%s\" where link_id = %s" % (link_names_dict_2[gl[2]], gl[2])
 		cursor.execute(query)
 		mysql.commit()
-"""

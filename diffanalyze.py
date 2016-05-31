@@ -8,12 +8,10 @@ import difflib
 #lines = open('diff_analysis.txt', 'r').readlines()
 lines = open('tempt.txt', 'r').readlines()
 
-"""
 text = ''
 for root, dirs, files in os.walk("/local/adv/files"):
         for f in files:
                 print os.path.join(root, f)
-"""
 
 totals = defaultdict(int)
 
@@ -29,7 +27,6 @@ for line in lines:
 	#totals[date2day] += 1
 
 print [(k, totals[k]) for k in sorted(totals, key = totals.get, reverse = True)][0:5]
-"""
 
 text = open('alladvs.txt', 'r').readlines()
 dd = defaultdict(int)
@@ -83,4 +80,3 @@ for line in lines:
 #for key, value in dd.items():
 	#print key, value	
 #print [(k, d[k]) for k in sorted(d, key = d.get, reverse = True)]
-"""

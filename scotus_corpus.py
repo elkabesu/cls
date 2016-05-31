@@ -9,7 +9,6 @@ import subprocess
 import urllib2
 import os
 
-"""
 baseurl = "http://www.supremecourt.gov/oral_arguments/argument_transcript/%s"
 path = "/home/ds3437/code_files/scotus_oral_arguments/pdf/%s.pdf"
 
@@ -33,7 +32,6 @@ for root, dirnames, filenames in os.walk(pdfpath):
 		pdffile = pdfpath + filename
 		subprocess.call(shelltext % (pdffile, pdffile.replace("pdf", "txt")), shell = True)
 
-"""
 
 with open("/home/ds3437/scotus/cases_toerase.txt", 'r') as f:
 	casestoerase = f.readlines()
