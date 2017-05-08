@@ -431,38 +431,3 @@ def mp_handler():
 if __name__ == '__main__':
     mp_handler()
 
-"""
-select * from (select event_num, price, code, if(min(d) <> max(d), concat(min(d), ' - ', max(d)), min(d)) as date_range from derek.20170405_deals_prices_found_practice group by event_num, price, code order by event_num, d, price) as aa, (select event_num, bidders from (select event_num, bidders, count(*) as c from derek.20170405_deals_prices_found_practice group by event_num, bidders order by c desc) as a group by event_num) as bb where aa.event_num = bb.event_num limit 5;
-
-
-vectorizer = TfidfVectorizer(min_df=1, ngram_range=(3,3))
-X = vectorizer.fit_transform(token_dict.values())
-idf = vectorizer._tfidf.idf_
-idf_words = dict(zip(vectorizer.get_feature_names(), idf))
-for i in sorted(idf_words.items(), key = lambda x: x[1])[:500]:
-    print i[0]
-
-if background:
-    soup = BeautifulSoup(background)
-    b = bool(soup.find('div'))
-    if not b:
-	b = bool(soup.find('p'))
-
-    if b:
-	bm_path = "backgroundmerger_files/%s_%s.htm" % (
-	    deal[0], deal[1].split('/')[4].replace('.txt', ''))
-    else:
-	bm_path = "backgroundmerger_files/%s_%s.txt" % (
-	    deal[0], deal[1].split('/')[4].replace('.txt', ''))
-
-    try:
-	open(bm_path, 'w').write(background)
-	cursor = mysql.cursor()
-	cursor.execute(bm_insert_query % (bm_path, deal[0], deal[2]))
-	mysql.commit()
-	cursor.close()
-	mysql.close()
-    except Exception, e:
-	print str(e)
-	continue
-"""
