@@ -17,11 +17,7 @@ sys.setrecursionlimit(10000)
 
 stopwords = stopwords.words('english')
 
-mysql = MySQLdb.connect("localhost", "root", "Edgar20!4", "derek")
 cursor = mysql.cursor()
-#query = "select * from (select company_name, path, filename, date_filed, form_type, mm_offer_price, event_num from 20170329_deals_filings union select company_name, path, filename, date_filed, 1,  mm_offer_price, event_num from 20170321_deals_filings union select company_name, path, filename, date_filed, form_type, mm_offer_price, event_num from 20170403_deals_filings) as a where event_num not in (select event_num from 20170404_mergermetrics_extracteddata_2)"
-#query = "select company_name, path, filename, date_filed, form_type, mm_offer_price, event_num from 20170329_deals_filings"
-#query = "select distinct event_num, path, concat(\'https://www.sec.gov/Archives/edgar/data/placeholder/\', substring_index(path, \'/\', -1)) as hyperlink from 20170404_mergermetrics_extracteddata_1"
 query = "select concat(\"/local/all_data/\", year, \"/\", substring_index(filename, \"/\", -1)) as path, dealid, purchaseprice from derek.20170408_temporary_mergermetrics_lite as a, edgar.edgar as b, derek.20170213_deals_formtype_breakdown as c where a.cik = b.cik and b.form_type = c.form_type and date_filed >= start and date_filed <= end limit 500"
 
 cursor.execute(query)
@@ -277,7 +273,6 @@ def get_correctdate(date, date_noyears, paragraphdate, most_current_year):
 
 def insert_offer_into_database(path, event_num, price, code, date,
                                extracted_bid, phrase_count):
-    mysql = MySQLdb.connect("localhost", "root", "Edgar20!4", "derek")
     cursor = mysql.cursor()
     cursor.execute(insert_query % (path, event_num, price, code, date,
                                    extracted_bid, phrase_count))
@@ -462,8 +457,6 @@ if background:
 
     try:
 	open(bm_path, 'w').write(background)
-	mysql = MySQLdb.connect("localhost", "root", "Edgar20!4",
-				"derek")
 	cursor = mysql.cursor()
 	cursor.execute(bm_insert_query % (bm_path, deal[0], deal[2]))
 	mysql.commit()
